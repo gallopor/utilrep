@@ -1,0 +1,21 @@
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+
+VELOCITY_HOST = '192.168.1.21'
+VELOCITY_USER = 'jimmy'
+VELOCITY_PSWD = 'Spirent'
+# VELOCITY_HOST = '10.190.15.229'
+# VELOCITY_USER = 'jxie'
+# VELOCITY_PSWD = 'Spirent-101'
+
+#ELASTICSEARCH_HOST = '192.168.3.50'
+ELASTICSEARCH_HOST = '192.168.1.20'
+ELASTICSEARCH_PORT = 9200
+ELASTICSEARCH_USER = 'api'
+ELASTICSEARCH_PSWD = 'index'
+
+START_DATE = '2017-06-01'
+END_DATE = '2017-08-30'
+

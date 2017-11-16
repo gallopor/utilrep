@@ -1,6 +1,6 @@
 import json
-from velsession import VelSession
-from inventory import Inventory
+from velocity.velsession import VelSession
+from velocity.inventory import Inventory
 
 from elasticsearch import Elasticsearch, helpers
 import urllib3

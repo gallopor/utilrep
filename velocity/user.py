@@ -1,4 +1,4 @@
-from velcaller import VelCaller
+from velocity.velcaller import VelCaller
 
 class User(VelCaller):
     
@@ -38,16 +38,16 @@ class User(VelCaller):
         return user['id']
 
 if __name__ == "__main__":
-    from velsession import VelSession
+    from velocity.velsession import VelSession
 
-    vs = VelSession(host='192.168.3.51', user='jimmy', pswd='Spirent')
-    uprof = User(vs)
+    obj_vs = VelSession(host='192.168.3.51', user='jimmy', pswd='Spirent')
+    obj_user = User(obj_vs)
 
-    users = uprof.get_users()
+    users = obj_user.get_users()
     print(users)
     
-    u_id = uprof.get_current_user()
-    print(uprof.users[u_id])
+    u_id = obj_user.get_current_user()
+    print(obj_user.users[u_id])
     
     
     

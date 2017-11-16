@@ -1,4 +1,4 @@
-from velcaller import VelCaller
+from velocity.velcaller import VelCaller
 
 class Inventory(VelCaller):
     
@@ -99,7 +99,7 @@ class Inventory(VelCaller):
         return ports
 
     def query_template_id(self, name):
-        url = resv.prefix + '/templates'
+        url = self.prefix + '/templates'
 
         tf = 'name::' + name
         response_info = self.vget(url, filter=tf)
@@ -114,7 +114,7 @@ class Inventory(VelCaller):
         return self.vget(url, filter=pf)
 
 if __name__ == "__main__":
-    from velsession import VelSession
+    from velocity.velsession import VelSession
 
     vs = VelSession(host='192.168.1.21', user='jimmy', pswd='Spirent')
     resv = Inventory(vs)
