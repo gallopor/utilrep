@@ -109,23 +109,24 @@ class Inventory(VelCaller):
     def query_ports_by_template(self, template):
         t_id = self.get_template_id(template)
         
-        url = resv.prefix + '/devices/ports'
+        url = self.prefix + '/devices/ports'
         pf = 'templateId::' + t_id
         return self.vget(url, filter=pf)
 
 if __name__ == "__main__":
     from velocity.velsession import VelSession
 
-    vs = VelSession(host='192.168.1.21', user='jimmy', pswd='Spirent')
-    resv = Inventory(vs)
+#    vs = VelSession(host='192.168.1.21', user='jimmy', pswd='Spirent')
+    vs = VelSession(host='10.190.15.229', user='jxie', pswd='Spirent-101')
+    obj_inv = Inventory(vs)
 
-    categories = resv.get_categories()
+    categories = obj_inv.get_categories()
     print(categories)
      
-    devices = resv.get_devices()
+    devices = obj_inv.get_devices()
     print(devices)
 
-    ports = resv.get_ports()
+    ports = obj_inv.get_ports()
     print(ports)
     print(len(ports))
      

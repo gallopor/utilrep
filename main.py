@@ -18,10 +18,10 @@ ELASTICSEARCH_USER = 'api'
 ELASTICSEARCH_PSWD = 'index'
 
 vs = VelSession(host=VELOCITY_HOST, user=VELOCITY_USER, pswd=VELOCITY_PSWD)
-inv = Inventory(vs)
+vel_inv = Inventory(vs)
 
-devices = inv.get_devices()
-ports = inv.get_ports()
+devices = vel_inv.get_devices()
+ports = vel_inv.get_ports()
 
 es = Elasticsearch(host=ELASTICSEARCH_HOST, port=ELASTICSEARCH_PORT, \
                    http_auth=(ELASTICSEARCH_USER, ELASTICSEARCH_PSWD), \

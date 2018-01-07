@@ -111,10 +111,11 @@ class Reservation(VelCaller):
 if __name__ == "__main__":
     from velocity.velsession import VelSession
     from velocity.inventory import Inventory
-
-    vs = VelSession(host='192.168.1.21', user='jxie', pswd='Spirent-101')
-    resv = Reservation(vs)
-    obj_inv = Inventory(vs)
+    
+    vs = VelSession(host='10.190.15.229', user='jxie', pswd='Spirent-101')
+#    vs = VelSession(host='192.168.1.21', user='jxie', pswd='Spirent-101')
+    vel_rsv = Reservation(vs)
+    vel_inv = Inventory(vs)
     
 #     ret = resv.query_resv_in_period('STCvPair', 1483200000000, 1507564800000)
 #     print(ret)
@@ -136,14 +137,14 @@ if __name__ == "__main__":
 #     
 #     url = '/velocity/api/reservation/v7/templates/2eab3479-eb97-4a0c-93b7-2d4d3dc4637a/utilization?startDate=1489334400000&endDate=1491408000000'   
 #     
-    template = 'Spirent Test Center'
-    template_id = obj_inv.query_template_id(template)
+    template = 'STC_PORT'
+    template_id = vel_inv.query_template_id(template)
     print(template_id)
-    start_date = '2017-08-25'
+    start_date = '2018-01-01'
     ts_start_date = int(time.mktime(time.strptime(start_date, '%Y-%m-%d')) * 1000)
-    end_date = '2017-08-28'
+    end_date = '2018-01-05'
     ts_end_date = int(time.mktime(time.strptime(end_date, '%Y-%m-%d')) * 1000)
-    response_info = resv.get_util_by_template(template_id, start_date, end_date)
+    response_info = vel_rsv.get_util_by_template(template_id, start_date, end_date)
     print(response_info)
     
     
