@@ -29,9 +29,9 @@ es = Elasticsearch(host=ELASTICSEARCH_HOST, port=ELASTICSEARCH_PORT,
                    use_ssl=True, verify_certs=False)
 
 ''' 创建elasticsearch索引 '''
-reservation_mapping = {
+util_device_mapping = {
     'mappings': {
-        'reservation': {
+        'util_device': {
             'properties': {
                 'name': {
                     'type': 'string',
@@ -48,11 +48,11 @@ reservation_mapping = {
         }
     }
 }
-if not es.indices.exists('reservation'):
-    es.indices.create(index='reservation', body=json.dumps(reservation_mapping))
+if not es.indices.exists('util_device'):
+    es.indices.create(index='util_device', body=json.dumps(util_device_mapping))
 
 ''' 加载更新记录文件 '''
-with open(os.path.join(DATA_DIR, 'reservation_log.json'), 'r') as fp:
+with open(os.path.join(DATA_DIR, 'device_log.json'), 'r') as fp:
     update_log = json.load(fp)
     last_date = update_log['last_date']
 
@@ -76,7 +76,7 @@ for i in range((today - begin).days):
     for user in util_device:
         util = util_device[user]
         util['date'] = int(ts) * 1000
-        print(json.dumps(util))
+#        print(json.dumps(util))
         action = {
             "_index": 'util_device',
             "_type": 'daily',
@@ -91,6 +91,6 @@ for i in range((today - begin).days):
         del actions[0:len(actions)]
 
 ''' 保存更新记录 '''
-with open(os.path.join(DATA_DIR, 'reservation_log.json'), 'w') as fp:
+with open(os.path.join(DATA_DIR, 'device_log.json'), 'w') as fp:
     update_log['last_date'] = str(ed)
     json.dump(update_log, fp)
