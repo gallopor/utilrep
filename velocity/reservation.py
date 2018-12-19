@@ -1,6 +1,7 @@
 import time
 from velocity.velcaller import VelCaller
 
+
 class Reservation(VelCaller):
 
     def __init__(self, vs, version='v6'):
@@ -35,7 +36,6 @@ class Reservation(VelCaller):
             'workOrder': None
         } 
         
-         
     def getActResvByTopo(self, tp_name):
         tp_id = self.getTopoIdByName(tp_name)
         
@@ -106,14 +106,46 @@ class Reservation(VelCaller):
         }
         util_info = self.vget(url, **params)
         return util_info
-    
+
+    def get_util_by_user(self, type, start, end):
+        # type = 'TOTAL_COUNT'
+        # type = 'TOTAL_HOURS'
+        ts_sd = int(time.mktime(time.strptime(start, '%Y-%m-%d')) * 1000)
+        ts_ed = int(time.mktime(time.strptime(end, '%Y-%m-%d')) * 1000)
+
+        url = self.prefix + '/reports'
+        total = None
+        count = 0
+        offset = 0
+        util_users = {}
+        while total is None or count < total:
+            params = {
+                'offset': str(offset),
+                'reportType': 'USER',
+                'measure': type,
+                'startAfter': str(ts_sd),
+                'endBefore': str(ts_ed)
+            }
+            ret = self.vget(url, **params)
+            total = ret['total']
+            count = count + ret['count']
+            offset = count
+
+            for user in ret['reports']:
+                new = {}
+                new['name'] = user['user']['name']
+                new['utiliation'] = user['utiliation']['period']
+                util_users[user['id']] = new
+        return util_users
+
         
 if __name__ == "__main__":
     from velocity.velsession import VelSession
     from velocity.inventory import Inventory
     
-    vs = VelSession(host='10.190.15.229', user='jxie', pswd='Spirent-101')
+#    vs = VelSession(host='10.190.15.229', user='jxie', pswd='Spirent-101')
 #    vs = VelSession(host='192.168.1.21', user='jxie', pswd='Spirent-101')
+    vs = VelSession(host='10.61.27.21', user='jxie', pswd='Spirent-101')
     vel_rsv = Reservation(vs)
     vel_inv = Inventory(vs)
     

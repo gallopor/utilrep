@@ -1,5 +1,6 @@
 from velocity.velcaller import VelCaller
 
+
 class User(VelCaller):
     
     def __init__(self, vs, version='v7'):
@@ -37,17 +38,18 @@ class User(VelCaller):
         user = self.vget(url)
         return user['id']
 
+
 if __name__ == "__main__":
     from velocity.velsession import VelSession
 
-    obj_vs = VelSession(host='192.168.3.51', user='jimmy', pswd='Spirent')
-    obj_user = User(obj_vs)
+    vel_vs = VelSession(host='192.168.1.21', user='jxie', pswd='Spirent-101')
+    vel_user = User(vel_vs)
 
-    users = obj_user.get_users()
+    users = vel_user.get_users()
     print(users)
     
-    u_id = obj_user.get_current_user()
-    print(obj_user.users[u_id])
+    u_id = vel_user.get_current_user()
+    print(vel_user.users[u_id])
     
     
     
